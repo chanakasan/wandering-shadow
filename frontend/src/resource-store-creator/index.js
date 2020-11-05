@@ -13,7 +13,7 @@ export default function createDux(resourceParams) {
   const actions =  createActions(modelName)
   const hoc = createHoc(modelName, selectorName, actions.mapDispatchToProps)
   const reducer = createReducer(actions)
-  const api = createApi(baseUrl, resourceUrl)
+  const api = createApi(modelName, baseUrl, resourceUrl)
   const epic = createEpic(api, actions)
 
   return {

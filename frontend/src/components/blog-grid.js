@@ -3,6 +3,7 @@ import React from 'react'
 import { withBlogPosts } from '../stores/blog-posts'
 
 const newPost = () => ({ title: `Post ${_.random(11,99)}` })
+const updatedPost = (o) => ({ ...o, title: `Post ${_.random(11,99)}` })
 
 const Spinner = () => <h2>Loading...</h2>
 
@@ -21,7 +22,7 @@ const Grid = ({ blogPosts, blogPostsPending, addBlogPost, updateBlogPost, delete
           <tr key={o.id}>
             <td>{o.title}</td>
             <td>
-              <button onClick={() => updateBlogPost(o)} type="button" className="btn btn-link">update</button>
+              <button onClick={() => updateBlogPost(updatedPost(o))} type="button" className="btn btn-link">update</button>
               <button onClick={() => deleteBlogPost(o)} type="button" className="btn btn-link">delete</button>
             </td>
           </tr>

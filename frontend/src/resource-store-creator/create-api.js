@@ -1,7 +1,8 @@
 import Axios from 'axios-observable'
 import { map } from 'rxjs/operators'
 
-export default function(baseUrl, resourceUrl) {
+export default function(modelName, baseUrl, resourceUrl) {
+  const modelSlug = _.snakeCase(modelName)
   const camelToSnakeCase = str => str
   const snakeToCamelCase = str => str
   const resourceBaseUrl = `${baseUrl}/${resourceUrl}`
@@ -14,7 +15,7 @@ export default function(baseUrl, resourceUrl) {
 
   function create(params) {
     return Axios.post(resourceBaseUrl,
-      camelToSnakeCase({ person: params })
+      camelToSnakeCase({ [modelSlug]: params })
     ).pipe(map(res => snakeToCamelCase(res.data)))
   }
 
@@ -22,7 +23,7 @@ export default function(baseUrl, resourceUrl) {
     return Axios.put(
       `${resourceBaseUrl}/${params.id}`,
       camelToSnakeCase({
-        person: params
+        [modelSlug]: params
       })
     ).pipe(map(res => snakeToCamelCase(res.data)))
   }
